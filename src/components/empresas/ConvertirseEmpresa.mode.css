@@ -1,0 +1,92 @@
+.convert-label {
+	color: #4fca56;
+	font-weight: 500;
+	margin-bottom: 0.2rem;
+	margin-top: 0.5rem;
+	font-size: 1rem;
+	letter-spacing: 0.01em;
+}
+/* Modal de Convertirse en Empresa - estilo pastel/minimalista */
+.convertirse-empresa-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 1rem 0;
+}
+
+.convertirse-empresa-form .form-input {
+	border: none;
+	border-bottom: 2px solid #b2dfdb;
+	background: #f7fafc;
+	padding: 0.7rem 1rem;
+	border-radius: 8px 8px 0 0;
+	font-size: 1rem;
+	transition: border-color 0.2s;
+}
+
+.convertirse-empresa-form .form-input:focus {
+	outline: none;
+	border-bottom: 2px solid #5dd16e;
+	background: #e3f2fd;
+}
+
+.register-error.message.error {
+	color: #d32f2f;
+	background: #ffebee;
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+	margin-bottom: 0.5rem;
+	font-size: 0.95rem;
+}
+
+.modal-content {
+	border-radius: 16px;
+	background: #f7fafc;
+	box-shadow: 0 4px 24px rgba(100, 181, 246, 0.12);
+}
+
+.modal-header {
+	background: #b2dfdb;
+	border-bottom: none;
+	border-radius: 16px 16px 0 0;
+}
+
+.modal-title {
+	color: #1976d2;
+	font-weight: 600;
+}
+
+.modal-footer {
+	border-top: none;
+	background: #f7fafc;
+	border-radius: 0 0 16px 16px;
+}
+
+.btn-primary {
+	background: rgb(64, 192, 64);
+	border: none;
+	color: #fff;
+	font-weight: 500;
+	border-radius: 8px;
+	padding: 0.5rem 1.2rem;
+	transition: background 0.2s;
+}
+
+.btn-primary:disabled {
+	background: #b2dfdb;
+	color: #90a4ae;
+}
+
+.btn-secondary {
+	background: #fff;
+	color: #1976d2;
+	border: 1px solid #b2dfdb;
+	border-radius: 8px;
+	font-weight: 500;
+	padding: 0.5rem 1.2rem;
+	transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+	background: #e3f2fd;
+}

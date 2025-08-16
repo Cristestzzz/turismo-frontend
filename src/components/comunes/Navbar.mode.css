@@ -1,0 +1,32 @@
+.navbar-naturaleza {
+  background: #83d887 !important;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 2px 12px rgba(180, 220, 200, 0.12);
+  border-bottom: none;
+}
+
+.navbar-naturaleza .navbar-brand {
+  color: #4e5d6c !important;
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: 1px;
+}
+
+.navbar-naturaleza .nav-link,
+.navbar-naturaleza .dropdown-toggle {
+  color: #4e5d6c !important;
+  font-weight: 500;
+  font-size: 1.08rem;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  background: transparent;
+}
+
+.navbar-naturaleza .nav-link:hover,
+.navbar-naturaleza .dropdown-toggle:hover {
+  color: #fff !important;
+  background: #2a8e3e;
+  box-shadow: 0 2px 8px rgba(180, 220, 200, 0.10);
+}
+
+/* ...y el resto de reglas solo para detalles visuales... */
