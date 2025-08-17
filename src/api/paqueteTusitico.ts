@@ -8,7 +8,7 @@ export interface ReservaPaqueteData {
 export async function reservarPaqueteTuristico(data: ReservaPaqueteData, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-    const response = await axios.post('http://localhost:8000/reservas/', data, {
+  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/reservas/`, data, {
       headers: {
         Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export async function deletePaqueteTuristico(id: string | number, token?: string
     throw new Error('No hay token de autenticación. Inicia sesión para continuar.');
   }
   try {
-    const response = await axios.delete(`http://localhost:8000/paquetes-turisticos/${id}`, {
+  const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, {
       headers: {
         Authorization: `Bearer ${authToken}`,
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export interface PaqueteTuristicoCreate {
 export async function createPaqueteTuristico(data: PaqueteTuristicoCreate, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-    const response = await axios.post('http://localhost:8000/paquetes-turisticos/', data, {
+  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/`, data, {
       headers: {
         Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export async function createPaqueteTuristico(data: PaqueteTuristicoCreate, token
 export async function getPaquetesTuristicos(token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-    const response = await axios.get('http://localhost:8000/paquetes-turisticos/', {
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/`, {
       headers: {
         Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export async function getPaquetesTuristicos(token?: string) {
 export async function getMisPaquetesTuristicos(token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-    const response = await axios.get('http://localhost:8000/paquetes-turisticos/operador/mis-paquetes', {
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/operador/mis-paquetes`, {
       headers: {
         Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export async function updatePaqueteTuristico(id: string | number, data: any, tok
         throw new Error('No hay token de autenticación. Inicia sesión para continuar.');
     }
     try {
-        const response = await axios.put(`http://localhost:8000/paquetes-turisticos/${id}`, data, {
+  const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, data, {
             headers: {
                 Authorization: `Bearer ${authToken}`,
                 'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ export async function updatePaqueteTuristico(id: string | number, data: any, tok
 export async function getPaqueteTuristicoById(id: string | number, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-    const response = await axios.get(`http://localhost:8000/paquetes-turisticos/${id}`, {
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, {
       headers: {
         Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json',

@@ -38,7 +38,7 @@ export const crearReserva = async (reservaData: ReservaPayload, token?: string) 
     // Obtener el token desde localStorage si no se pasa explícitamente
     const authToken = token || localStorage.getItem('token');
     const response = await axios.post(
-      'http://localhost:8000/reservas/',
+  `${import.meta.env.VITE_BACKEND_URL}/reservas/`,
       payload,
       {
         headers: {
@@ -56,7 +56,7 @@ export const crearReserva = async (reservaData: ReservaPayload, token?: string) 
 
 export const getMisReservas = async (token?: string) => {
   const authToken = token || localStorage.getItem('token');
-  const response = await axios.get('http://localhost:8000/reservas/', {
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/reservas/`, {
     headers: {
       Authorization: authToken ? `Bearer ${authToken}` : '',
       'Content-Type': 'application/json',

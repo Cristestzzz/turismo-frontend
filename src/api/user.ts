@@ -12,7 +12,7 @@ export interface UpdateUserProfileData {
 export async function updateUserProfile(data: UpdateUserProfileData) {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.put('http://localhost:8000/usuarios/me', data, {
+  const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/usuarios/me`, data, {
       headers: {
         Authorization: token ? `Bearer ${token}` : '',
       },
@@ -34,7 +34,7 @@ export interface ConvertirseEmpresaData {
 export async function convertirEnEmpresa(data: ConvertirseEmpresaData) {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.post('http://localhost:8000/usuarios/me/convert-to-operator', data, {
+  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/usuarios/me/convert-to-operator`, data, {
       headers: {
         Authorization: token ? `Bearer ${token}` : '',
       },
@@ -67,7 +67,7 @@ export interface CreateUserData {
 
 export async function createUser(userData: CreateUserData) {
   try {
-    const response = await axios.post('http://localhost:8000/auth/register', userData);
+  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/register`, userData);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.detail || 'Error al crear usuario');
@@ -81,7 +81,7 @@ export interface LoginUserData {
 
 export async function loginUser(loginData: LoginUserData) {
   try {
-    const response = await axios.post('http://localhost:8000/auth/login', loginData);
+  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, loginData);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response?.data?.detail || 'Error al iniciar sesión');

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/favoritos/';
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/favoritos/`;
 
 export async function addFavorito(paquete_id: number, token: string) {
 	return axios.post(
