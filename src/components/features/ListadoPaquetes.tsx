@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import { getPaquetesTuristicos, searchPaquetesTuristicos } from '../../api/paqueteTusitico';
 import { useAuth } from '../../context/AuthContext';
-import { addFavorito, removeFavorito, checkFavorito } from '../../api/favorito';
 import CategoriasCarousel from './CategoriasCarousel';
 import HeroSection from './HeroSection';
 import { Features } from './Features';
@@ -16,7 +15,6 @@ const ListadoPaquetes: React.FC = () => {
   const [paquetes, setPaquetes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [favoritos, setFavoritos] = useState<{[key: number]: boolean}>({});
   const navigate = useNavigate();
   const { user } = useAuth();
   const { categoria } = useParams();
@@ -32,7 +30,6 @@ const ListadoPaquetes: React.FC = () => {
           data = await getPaquetesTuristicos(user?.token);
         }
         setPaquetes(data);
-        // Si tienes lógica de favoritos, puedes agregarla aquí
       } catch (err: any) {
         setError(err?.message || 'Error al cargar paquetes');
       } finally {
@@ -41,26 +38,6 @@ const ListadoPaquetes: React.FC = () => {
     }
     fetchPaquetes();
   }, [user, categoria]);
-
-  const handleFavorito = async (paqueteId: number) => {
-    if (!user?.token) return;
-    try {
-      if (favoritos[paqueteId]) {
-        await removeFavorito(paqueteId, user.token);
-        setFavoritos({ ...favoritos, [paqueteId]: false });
-      } else {
-        await addFavorito(paqueteId, user.token);
-        setFavoritos({ ...favoritos, [paqueteId]: true });
-      }
-    } catch (err) {
-      console.error('Error al actualizar favoritos:', err);
-    }
-  };
-  
-  const handleStarClick = (e: React.MouseEvent, paqueteId: number) => {
-    e.stopPropagation();
-    handleFavorito(paqueteId);
-  };
 
   const featuresData = {
     mainTitle: "",
@@ -101,13 +78,10 @@ const ListadoPaquetes: React.FC = () => {
           "https://live.staticflickr.com/5489/9387084053_983025f3d6_h.jpg"
         ]}
       />
-      
       <div className="main-content-wrapper">
         <div className="container py-4">
           <CategoriasCarousel />
-          
           <Features mainTitle={featuresData.mainTitle} items={featuresData.items} />
-
           <h1 className="mt-5">Paquetes turísticos disponibles</h1>
           {loading && <div>Cargando...</div>}
           {error && <div className="text-danger">{error}</div>}
