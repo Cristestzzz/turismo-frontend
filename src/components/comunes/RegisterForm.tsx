@@ -40,13 +40,15 @@ const RegisterForm: React.FC = () => {
       await createUser(form);
       setSuccess(true);
       login({
+        id: 0,
         email: form.email,
         nombre: form.nombre,
         apellido: form.apellido,
+        isOperador: false,
       });
       setForm(initialState);
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/');
       }, 1200); // Pequeña pausa para mostrar el mensaje de éxito
     } catch (err: any) {
       setError(err.message);
