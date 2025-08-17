@@ -1,5 +1,6 @@
 import React from 'react';
 import MisReservasPage from '../pages/pages_turistas/MisReservasPage';
+import ReservasRecibidasPage from '../pages/pages_empresas/ReservasRecibidasPage';
 import { Routes, Route } from 'react-router-dom';
 import RegisterPage from '../pages/auth/RegisterPage';
 import LoginPage from '../pages/auth/LoginPage';
@@ -25,6 +26,7 @@ const AppRoutes: React.FC = () => (
   <Route path="/paquete/:id" element={<PaqueteDetallePage />} />
   <Route path="/reservar-paquete/:id" element={<ReservarPaquetePage />} />
   <Route path="/mis-reservas" element={<MisReservasPage />} />
+    <Route path="/reservas-recibidas" element={<ReservasRecibidasPage />} />
   {/* Nueva ruta para paquetes por categoría */}
   <Route path="/paquetes/:categoria" element={<ListadoPaquetes />} />
     {/* Agrega más rutas aquí */}

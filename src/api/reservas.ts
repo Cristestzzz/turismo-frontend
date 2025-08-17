@@ -1,3 +1,32 @@
+export interface ReservaEmpresa {
+  id: number;
+  paquete_id: number;
+  nombre: string;
+  email: string;
+  cantidad: number;
+  fecha_inicio: string;
+  fecha_fin: string;
+  fecha_creacion: string;
+  propiedad_titulo?: string;
+  operador_nombre?: string;
+  operador_apellido?: string;
+  dias_estancia?: number;
+}
+
+export async function getReservasByOperador(token?: string) {
+  try {
+    const authToken = token || localStorage.getItem('token');
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/reservas/operador`, {
+      headers: {
+        Authorization: authToken ? `Bearer ${authToken}` : '',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.detail || 'Error al obtener reservas recibidas');
+  }
+}
 import axios from 'axios';
 
 export interface ReservaCreate {
