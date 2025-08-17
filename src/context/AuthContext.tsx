@@ -20,29 +20,28 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>(null);
 
-  // Restaurar usuario si existe token en localStorage al cargar la app
+  // Restaurar usuario completo desde localStorage al cargar la app
   React.useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token && !user) {
-      // Aquí podrías decodificar el token o hacer una petición al backend para obtener los datos del usuario
-      // Ejemplo simple: solo restaurar el token
-      setUser({ token } as AuthUser);
-      // Si tienes endpoint para obtener datos del usuario, haz la petición aquí y actualiza setUser
+    const userData = localStorage.getItem('user');
+    if (userData && !user) {
+      setUser(JSON.parse(userData));
     }
   }, []);
 
-  // login ahora guarda el token en localStorage
+  // login ahora guarda todos los datos del usuario en localStorage
   const login = (userData: AuthUser & { token?: string }) => {
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
     if (userData.token) {
       localStorage.setItem('token', userData.token);
     }
   };
 
-  // logout elimina el token de localStorage
+  // logout elimina todos los datos del usuario de localStorage
   const logout = () => {
     setUser(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   };
 
   return (

@@ -1,3 +1,12 @@
+// Declaración global para que TypeScript reconozca import.meta.env en Vite
+declare global {
+  interface ImportMeta {
+    env: {
+      VITE_BACKEND_URL: string;
+      // Agrega aquí otras variables si las usas
+    };
+  }
+}
 export interface ReservaPaqueteData {
   paquete_id: string | number;
   nombre: string;
@@ -8,11 +17,10 @@ export interface ReservaPaqueteData {
 export async function reservarPaqueteTuristico(data: ReservaPaqueteData, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/reservas/`, data, {
-      headers: {
-        Authorization: authToken ? `Bearer ${authToken}` : '',
-        'Content-Type': 'application/json',
-      },
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/reservas/`, data, {
+      headers
     });
     return response.data;
   } catch (error: any) {
@@ -25,11 +33,10 @@ export async function deletePaqueteTuristico(id: string | number, token?: string
     throw new Error('No hay token de autenticación. Inicia sesión para continuar.');
   }
   try {
-  const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-        'Content-Type': 'application/json',
-      },
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+    const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, {
+      headers
     });
     return response.data;
   } catch (error: any) {
@@ -46,15 +53,12 @@ export interface PaqueteTuristicoFiltros {
 export async function searchPaquetesTuristicos(filtros: PaqueteTuristicoFiltros, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
     const response = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/search`,
       filtros,
-      {
-        headers: {
-          Authorization: authToken ? `Bearer ${authToken}` : '',
-          'Content-Type': 'application/json',
-        },
-      }
+      { headers }
     );
     return response.data;
   } catch (error: any) {
@@ -93,11 +97,10 @@ export interface PaqueteTuristicoCreate {
 export async function createPaqueteTuristico(data: PaqueteTuristicoCreate, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/`, data, {
-      headers: {
-        Authorization: authToken ? `Bearer ${authToken}` : '',
-        'Content-Type': 'application/json',
-      },
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/`, data, {
+      headers
     });
     return response.data;
   } catch (error: any) {
@@ -108,11 +111,10 @@ export async function createPaqueteTuristico(data: PaqueteTuristicoCreate, token
 export async function getPaquetesTuristicos(token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/`, {
-      headers: {
-        Authorization: authToken ? `Bearer ${authToken}` : '',
-        'Content-Type': 'application/json',
-      },
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/`, {
+      headers
     });
     return response.data;
   } catch (error: any) {
@@ -123,11 +125,10 @@ export async function getPaquetesTuristicos(token?: string) {
 export async function getMisPaquetesTuristicos(token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/operador/mis-paquetes`, {
-      headers: {
-        Authorization: authToken ? `Bearer ${authToken}` : '',
-        'Content-Type': 'application/json',
-      },
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/operador/mis-paquetes`, {
+      headers
     });
     return response.data;
   } catch (error: any) {
@@ -136,31 +137,29 @@ export async function getMisPaquetesTuristicos(token?: string) {
 }
 
 export async function updatePaqueteTuristico(id: string | number, data: any, token?: string) {
-    const authToken = token || localStorage.getItem('token');
-    if (!authToken || authToken === 'null' || authToken === 'undefined') {
-        throw new Error('No hay token de autenticación. Inicia sesión para continuar.');
-    }
-    try {
-  const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, data, {
-            headers: {
-                Authorization: `Bearer ${authToken}`,
-                'Content-Type': 'application/json',
-            },
-        });
-        return response.data;
-    } catch (error: any) {
-        throw new Error(error.response?.data?.detail || 'Error al actualizar paquete turístico');
-    }
+  const authToken = token || localStorage.getItem('token');
+  if (!authToken || authToken === 'null' || authToken === 'undefined') {
+    throw new Error('No hay token de autenticación. Inicia sesión para continuar.');
+  }
+  try {
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+    const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, data, {
+      headers
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.detail || 'Error al actualizar paquete turístico');
+  }
 }
 
 export async function getPaqueteTuristicoById(id: string | number, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, {
-      headers: {
-        Authorization: authToken ? `Bearer ${authToken}` : '',
-        'Content-Type': 'application/json',
-      },
+    const headers: any = { 'Content-Type': 'application/json' };
+    if (authToken) headers.Authorization = `Bearer ${authToken}`;
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/${id}`, {
+      headers
     });
     return response.data;
   } catch (error: any) {

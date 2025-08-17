@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -29,6 +29,7 @@ function TurismoNavbar() {
   const handleCloseEmpresaModal = () => setShowEmpresaModal(false);
 
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +48,12 @@ function TurismoNavbar() {
   return (
     <Navbar expand="lg" className={`navbar-glassmorphism ${scrolled ? 'scrolled' : ''}`} data-bs-theme="dark">
       <Container>
-        <Navbar.Brand as={Link} to="/">Kandamo</Navbar.Brand>
+        <Navbar.Brand
+          as={Link}
+          to={isLoggedIn && isOperador ? "/dashboard" : "/"}
+        >
+          Kandamo
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-turismo" />
         <Navbar.Collapse id="navbar-turismo">
           {/* Menú de navegación en el centro */}
@@ -110,17 +116,24 @@ function TurismoNavbar() {
                 <Nav.Link as={Link} to="/register" style={{ fontWeight: 400 }}>Registrarse</Nav.Link>
               </>
             ) : (
-              <NavDropdown title={<><LuUser size={18} style={{ marginRight: '0.5rem' }} /> {user?.nombre || user?.email || "Usuario"}</>} id="usuario-dropdown" align="end">
-                <NavDropdown.Item as={Link} to="/perfil">Perfil</NavDropdown.Item>
-                {!isOperador && (
-                  <NavDropdown.Item onClick={handleOpenEmpresaModal}>Conviértete en Empresa</NavDropdown.Item>
-                )}
-                {isOperador && (
-                  <NavDropdown.Item as={Link} to="/perfil-empresa">Perfil empresa</NavDropdown.Item>
-                )}
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={logout}>Cerrar sesión</NavDropdown.Item>
-              </NavDropdown>
+              (user?.nombre || user?.email) ? (
+                <NavDropdown title={<><LuUser size={18} style={{ marginRight: '0.5rem' }} /> {user?.nombre || user?.email}</>} id="usuario-dropdown" align="end">
+                  <NavDropdown.Item as={Link} to="/perfil">Perfil</NavDropdown.Item>
+                  {!isOperador && (
+                    <NavDropdown.Item onClick={handleOpenEmpresaModal}>Conviértete en Empresa</NavDropdown.Item>
+                  )}
+                  {isOperador && (
+                    <NavDropdown.Item as={Link} to="/perfil-empresa">Perfil empresa</NavDropdown.Item>
+                  )}
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item onClick={() => { logout(); navigate('/'); }}>Cerrar sesión</NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <>
+                  <Nav.Link as={Link} to="/login">Iniciar sesión</Nav.Link>
+                  <Nav.Link as={Link} to="/register" style={{ fontWeight: 400 }}>Registrarse</Nav.Link>
+                </>
+              )
             )}
           </Nav>
         </Navbar.Collapse>

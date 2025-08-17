@@ -59,7 +59,11 @@ const LoginForm: React.FC = () => {
       }
       setSuccess(true);
       setTimeout(() => {
-        navigate('/');
+        if (isOperador) {
+          navigate('/dashboard');
+        } else {
+          navigate('/');
+        }
       }, 1200);
     } catch (err: any) {
       setError(err.message);
