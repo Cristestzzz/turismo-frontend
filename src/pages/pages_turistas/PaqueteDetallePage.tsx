@@ -4,6 +4,7 @@ import { getPaqueteTuristicoById } from '../../api/paqueteTusitico';
 import ReservationCard from '../../components/turistas/ReservationCard'; // Importa el componente ReservationCard
 import GallerySection from '../../components/turistas/GallerySection'; // Importa el componente GallerySection
 import ReviewsSection from '../../components/turistas/ReviewsSection'; // Importa el componente ReviewsSection
+import PackageDetails from '../../components/turistas/PackageDetails'; // Importa el componente PackageDetails
 import { Button } from '../../components/ui/Button/Button'; // Importa el componente Button
 import { LuPencilLine, LuHeart } from 'react-icons/lu'; // Importa los iconos
 
@@ -56,19 +57,12 @@ const PaqueteDetallePage: React.FC = () => {
           </Button>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '2rem' }}>
+      {paquete.imagenes && paquete.imagenes.length > 0 && (
+        <GallerySection imagenes={paquete.imagenes} />
+      )}
+      <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem' }}>
         <div style={{ flex: 2 }}>
-          {paquete.imagenes && paquete.imagenes.length > 0 && (
-            <GallerySection imagenes={paquete.imagenes} />
-          )}
-          <p><strong>Tipo:</strong> {paquete.tipo_paquete}</p>
-        <p><strong>Destino:</strong> {paquete.ciudad_destino}, {paquete.pais_destino}</p>
-        <p><strong>Duración:</strong> {paquete.duracion_dias} días</p>
-        <p><strong>Capacidad máxima:</strong> {paquete.capacidad_maxima}</p>
-        <p><strong>Nivel de dificultad:</strong> {paquete.nivel_dificultad}</p>
-        <p><strong>Precio por persona:</strong> S/ {paquete.precio_por_persona}</p>
-        <p><strong>Descripción:</strong> {paquete.descripcion || 'Sin descripción'}</p>
-        {/* Puedes agregar más campos si lo deseas */}
+          <PackageDetails paquete={paquete} />
         </div>
         <div style={{ flex: 1 }}>
           <ReservationCard

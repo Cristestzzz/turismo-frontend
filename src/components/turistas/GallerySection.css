@@ -1,7 +1,7 @@
 /* Contenedor principal de la galería */
 .gallery-section {
   display: grid;
-  grid-template-columns: 3fr 1fr; /* Ajustado para una columna izquierda más grande y una derecha más pequeña */
+  grid-template-columns: 2fr 1fr;
   gap: 10px;
   margin-top: 20px;
   height: 400px; /* Altura fija para la sección de la galería */
@@ -64,8 +64,9 @@
 
 
 .gallery-right {
-  display: flex; /* Cambiado a flexbox para apilar verticalmente */
-  flex-direction: column; /* Apilar miniaturas verticalmente */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 10px;
 }
 
@@ -74,7 +75,6 @@
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
-  flex: 1; /* Para que las miniaturas ocupen el espacio disponible equitativamente */
 }
 
 .gallery-thumb img {

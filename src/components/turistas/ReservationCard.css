@@ -8,6 +8,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 .reserva-top-row {
