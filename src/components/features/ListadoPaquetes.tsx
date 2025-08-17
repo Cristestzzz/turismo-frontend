@@ -99,7 +99,7 @@ const ListadoPaquetes: React.FC = () => {
   
   return (
     <div className="homepage-container">
-      {/* El HeroSection se renderiza en la parte superior del flujo de la página */}
+      {/* El HeroSection se renderiza en la parte superior del flujo de la */}
       <HeroSection
         images={[
           "https://live.staticflickr.com/8266/8746178810_7cf99099c1_h.jpg",
