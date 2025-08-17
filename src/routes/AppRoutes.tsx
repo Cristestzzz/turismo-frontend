@@ -18,13 +18,15 @@ const AppRoutes: React.FC = () => (
     <Route path="/" element={<ListadoPaquetes />} />
     <Route path="/register" element={<RegisterPage />} />
     <Route path="/login" element={<LoginPage />} />
-    <Route path="/dashboard" element={<DashboardEmpresaPage />} />
-    <Route path="/empresa/crear-paquete" element={<CrearPaquetePage />} />
-    <Route path="/mis-paquetes" element={<MisPaquetesPage />} />
-    <Route path="/empresa/editar-paquete/:id" element={<EditarPaquetePage />} />
-    <Route path="/paquete/:id" element={<PaqueteDetallePage />} />
-    <Route path="/reservar-paquete/:id" element={<ReservarPaquetePage />} />
+  <Route path="/dashboard" element={<DashboardEmpresaPage />} />
+  <Route path="/empresa/crear-paquete" element={<CrearPaquetePage />} />
+  <Route path="/mis-paquetes" element={<MisPaquetesPage />} />
+  <Route path="/empresa/editar-paquete/:id" element={<EditarPaquetePage />} />
+  <Route path="/paquete/:id" element={<PaqueteDetallePage />} />
+  <Route path="/reservar-paquete/:id" element={<ReservarPaquetePage />} />
   <Route path="/mis-reservas" element={<MisReservasPage />} />
+  {/* Nueva ruta para paquetes por categoría */}
+  <Route path="/paquetes/:categoria" element={<ListadoPaquetes />} />
     {/* Agrega más rutas aquí */}
   </Routes>
 );

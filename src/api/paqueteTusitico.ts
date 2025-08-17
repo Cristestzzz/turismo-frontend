@@ -38,6 +38,30 @@ export async function deletePaqueteTuristico(id: string | number, token?: string
 }
 import axios from 'axios';
 
+export interface PaqueteTuristicoFiltros {
+  tipo_paquete?: string;
+  // Puedes agregar más filtros si el backend lo soporta
+}
+
+export async function searchPaquetesTuristicos(filtros: PaqueteTuristicoFiltros, token?: string) {
+  try {
+    const authToken = token || localStorage.getItem('token');
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/paquetes-turisticos/search`,
+      filtros,
+      {
+        headers: {
+          Authorization: authToken ? `Bearer ${authToken}` : '',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.detail || 'Error al buscar paquetes turísticos');
+  }
+}
+
 export interface PaqueteTuristicoCreate {
   titulo: string;
   descripcion?: string;

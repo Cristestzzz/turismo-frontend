@@ -75,16 +75,16 @@ function TurismoNavbar() {
             {isLoggedIn && !isOperador && (
               <>
                 <NavDropdown title="Paquetes turísticos" id="paquetes-dropdown">
-                  <NavDropdown.Item href="#aventura">Aventura</NavDropdown.Item>
-                  <NavDropdown.Item href="#cultural">Cultural</NavDropdown.Item>
-                  <NavDropdown.Item href="#gastronomico">Gastronómico</NavDropdown.Item>
-                  <NavDropdown.Item href="#playa">Playa</NavDropdown.Item>
-                  <NavDropdown.Item href="#montaña">Montaña</NavDropdown.Item>
-                  <NavDropdown.Item href="#ciudad">Ciudad</NavDropdown.Item>
-                  <NavDropdown.Item href="#ecoturismo">Ecoturismo</NavDropdown.Item>
-                  <NavDropdown.Item href="#romantico">Romántico</NavDropdown.Item>
-                  <NavDropdown.Item href="#familiar">Familiar</NavDropdown.Item>
-                  <NavDropdown.Item href="#negocios">Negocios</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/aventura">Aventura</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/cultural">Cultural</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/gastronomico">Gastronómico</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/playa">Playa</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/montaña">Montaña</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/ciudad">Ciudad</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/ecoturismo">Ecoturismo</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/romantico">Romántico</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/familiar">Familiar</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/paquetes/negocios">Negocios</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link as={Link} to="/mis-reservas"><LuCalendar size={18} style={{ marginRight: '0.5rem' }} /> Mis reservas</Nav.Link>
                 <Nav.Link as={Link} to="/favoritos"><LuStar size={18} style={{ marginRight: '0.5rem' }} /> Favoritos</Nav.Link>
