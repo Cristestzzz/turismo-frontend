@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { getPaquetesTuristicos } from '../../api/paqueteTusitico';
+import { useNavigate, Link, useParams } from 'react-router-dom';
+import { getPaquetesTuristicos, searchPaquetesTuristicos } from '../../api/paqueteTusitico';
 import { useAuth } from '../../context/AuthContext';
 import { addFavorito, removeFavorito, checkFavorito } from '../../api/favorito';
 import CategoriasCarousel from './CategoriasCarousel';
@@ -19,25 +19,20 @@ const ListadoPaquetes: React.FC = () => {
   const [favoritos, setFavoritos] = useState<{[key: number]: boolean}>({});
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { categoria } = useParams();
 
   useEffect(() => {
     async function fetchPaquetes() {
+      setLoading(true);
       try {
-        const data = await getPaquetesTuristicos();
-        setPaquetes(data);
-            if (typeof user?.token === 'string' && user.token) {
-              const favs: {[key: number]: boolean} = {};
-              await Promise.all(data.map(async (p: any) => {
-                try {
-                  const res = await checkFavorito(p.id, user.token as string);
-                  favs[p.id] = res && typeof res.is_favorite === 'boolean' ? res.is_favorite : false;
-                } catch (e) {
-                  console.error('Error al consultar favorito:', e);
-                  favs[p.id] = false;
-                }
-              }));
-              setFavoritos(favs);
+        let data;
+        if (categoria) {
+          data = await searchPaquetesTuristicos({ tipo_paquete: categoria }, user?.token);
+        } else {
+          data = await getPaquetesTuristicos(user?.token);
         }
+        setPaquetes(data);
+        // Si tienes lógica de favoritos, puedes agregarla aquí
       } catch (err: any) {
         setError(err?.message || 'Error al cargar paquetes');
       } finally {
@@ -45,7 +40,7 @@ const ListadoPaquetes: React.FC = () => {
       }
     }
     fetchPaquetes();
-  }, [user]);
+  }, [user, categoria]);
 
   const handleFavorito = async (paqueteId: number) => {
     if (!user?.token) return;
