@@ -1,0 +1,258 @@
+/* Contenedor principal de la galería */
+.gallery-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+  height: 400px; /* Altura fija para la sección de la galería */
+  position: relative;
+}
+
+.gallery-left {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.gallery-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gallery-main-image:hover {
+  transform: scale(1.02);
+}
+
+/* Estilos del botón "Mostrar todas las fotos" */
+.show-all-photos-btn {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: white;
+  color: #333;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.show-all-photos-btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.photos-icon {
+  font-size: 1rem;
+}
+
+/* Se elimina esta sección ya que el botón está dentro del contenedor principal */
+/* .gallery-footer {
+  text-align: center;
+  margin-top: 20px;
+} */
+
+
+.gallery-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+.gallery-thumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-thumb:hover img {
+  transform: scale(1.05);
+}
+
+/* Lightbox Styles */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.lightbox-navigation {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 20px;
+}
+
+.lightbox-nav-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  line-height: 1;
+  transition: background-color 0.3s ease;
+}
+
+.lightbox-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.lightbox-counter {
+  color: white;
+  font-size: 1.2rem;
+  align-self: center;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Todas las fotos overlay (Layout horizontal) */
+.todas-fotos-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.todas-fotos-container-horizontal {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 95%;
+  max-width: 1200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.todas-fotos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.todas-fotos-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.todas-fotos-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.todas-fotos-thumbnails {
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  gap: 10px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.todas-fotos-thumbnails::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+
+.thumbnail-item {
+  width: 120px;
+  height: 90px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0; /* Evita que las miniaturas se encojan */
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.thumbnail-item.active {
+  border-color: var(--color-accent-cool); /* Usa tu color de acento */
+}
+
+.thumbnail-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.todas-fotos-main-image {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.todas-fotos-main-image img {
+  width: 100%;
+  display: block;
+  max-height: 600px; /* Ajusta la altura máxima según sea necesario */
+  object-fit: contain; /* Para mostrar la imagen completa sin recortar */
+}
