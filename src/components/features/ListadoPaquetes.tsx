@@ -5,9 +5,11 @@ import { useAuth } from '../../context/AuthContext';
 import { addFavorito, removeFavorito, checkFavorito } from '../../api/favorito';
 import PaquetesCarousel from './../comunes/PaquetesCarousel';
 import CategoriasCarousel from './CategoriasCarousel';
+import { Features } from './Features'; // Importa el componente Features
 import HeroSection from './HeroSection';
 import './PaquetesCard.css';
 import { FaHeart, FaRegHeart, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa'; // Importa los íconos necesarios
+import { LuHeadset, LuGift, LuMessagesSquare, LuCalendarCheck } from 'react-icons/lu'; // Importa los iconos específicos de Lucide
 
 const ListadoPaquetes: React.FC = () => {
   const [paquetes, setPaquetes] = useState<any[]>([]);
@@ -63,9 +65,41 @@ const ListadoPaquetes: React.FC = () => {
     e.stopPropagation();
     handleFavorito(paqueteId);
   };
+
+  // Datos para las features que coinciden con la imagen
+  const featuresData = {
+    mainTitle: "",
+    items: [
+      {
+        title: "Atención al cliente",
+        subtitle: "Ininterrumpida",
+        description: "Sin importar la zona horaria, estamos aquí para ayudarte.",
+        icon: LuHeadset // Icono de Lucide React
+      },
+      {
+        title: "Gana recompensas",
+        subtitle: "",
+        description: "Explora, gana, canjea y repite con nuestro programa de fidelidad.",
+        icon: LuGift // Icono de Lucide React
+      },
+      {
+        title: "Millones de opiniones",
+        subtitle: "",
+        description: "Planifica y reserva con confianza gracias a las opiniones de otros viajeros.",
+        icon: LuMessagesSquare // Icono de Lucide React
+      },
+      {
+        title: "Planifica a tu manera",
+        subtitle: "",
+        description: "Mantén la flexibilidad con la cancelación gratuita y la opción de reservar ahora y pagar después sin coste adicional.",
+        icon: LuCalendarCheck // Icono de Lucide React
+      }
+    ]
+  };
   
   return (
     <div className="homepage-container">
+      {/* El HeroSection se renderiza en la parte superior del flujo de la página */}
       <HeroSection
         images={[
           "https://live.staticflickr.com/8266/8746178810_7cf99099c1_h.jpg",
@@ -73,7 +107,7 @@ const ListadoPaquetes: React.FC = () => {
           "https://live.staticflickr.com/5489/9387084053_983025f3d6_h.jpg"
         ]}
       />
-      
+      <Features {...featuresData} /> {/* Agrega el componente Features aquí */}
       <div className="main-content-wrapper">
         <div className="container py-4">
           <CategoriasCarousel />
