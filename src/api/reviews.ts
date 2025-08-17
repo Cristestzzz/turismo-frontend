@@ -26,7 +26,7 @@ export interface Review {
 export async function getReviewsByPaquete(paqueteId: number | string, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/reviews/paquete/${paqueteId}`, {
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/reviews/paquete/${paqueteId}`, {
       headers: {
         Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export async function getReviewsByPaquete(paqueteId: number | string, token?: st
 export async function createReview(reviewData: Review, token?: string) {
   try {
     const authToken = token || localStorage.getItem('token');
-    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/reviews/`, reviewData, {
+  const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/reviews/`, reviewData, {
       headers: {
         Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json',

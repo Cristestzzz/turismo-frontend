@@ -7,6 +7,7 @@ import ReviewsSection from '../../components/turistas/ReviewsSection'; // Import
 import PackageDetails from '../../components/turistas/PackageDetails'; // Importa el componente PackageDetails
 import { Button } from '../../components/ui/Button/Button'; // Importa el componente Button
 import { LuPencilLine, LuHeart } from 'react-icons/lu'; // Importa los iconos
+import CrearReviewPopup from '../../components/comunes/CrearReviewPopup';
 
 const PaqueteDetallePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -44,14 +45,7 @@ const PaqueteDetallePage: React.FC = () => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
         <h2>{paquete.titulo}</h2>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <Button
-            variant="outline"
-            size="sm"
-            className="button-revisar"
-            onClick={handleOpenReviewPage}
-          >
-            <LuPencilLine size={16} />Revisar
-          </Button>
+          <CrearReviewPopup paqueteId={paquete.id} />
           <Button variant="outline" size="sm">
             <LuHeart size={16} />Guardar
           </Button>
