@@ -1,0 +1,99 @@
+.reserva-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  font-family: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reserva-top-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.reserva-precio {
+  display: flex;
+  align-items: baseline;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 0;
+}
+
+.precio-monto {
+  font-size: 24px;
+  color: #000;
+}
+
+.precio-periodo {
+  margin-left: 6px;
+  font-size: 16px;
+  color: #444;
+}
+
+.reserva-rating {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.rating-num {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.reseñas a {
+  text-decoration: underline;
+  font-weight: 500;
+  color: #000;
+}
+
+.reserva-card__availability {
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+.reserva-garantia {
+  font-size: 14px;
+  margin: 12px 0;
+  color: #333;
+  width: 100%;
+}
+
+.btn-reserva {
+  width: 100%;
+  background-color: var(--color-text-light);
+  color: var(--color-accent-cool);
+  padding: 12px;
+  border: 2px solid var(--color-accent-cool); /* Borde correcto */
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-reserva:hover {
+  background-color: var(--color-accent-cool); /* Fondo con color de acento al pasar el ratón */
+  color: var(--color-text-light); /* Texto blanco al pasar el ratón */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.reserva-nota {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  margin-top: 12px;
+  width: 100%;
+}
