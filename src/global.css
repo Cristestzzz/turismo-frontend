@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+/* PAlETA DE COLORES*/
+:root {
+  --color-emerald-green: #2E8B57; /* Selva */
+  --color-deep-blue: #141414;    /* Ríos y atardeceres */
+  --color-old-gold: #D4AF37;     /* Luxe y biodiversidad */
+  --color-elegant-black: #111111; /* Tipografía y contraste */
+
+  --color-text-main: var(--color-elegant-black);
+  --color-text-light: #FFFFFF; /* Mantener blanco para texto claro si es necesario */
+
+  --font-family-title: 'Playfair Display', serif;
+  --font-family-text: 'Inter', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-text);
+  background-color: var(--color-bg); /* Mantener el color de fondo existente o ajustarlo si es necesario */
+  line-height: 1.6;
+}
+
+/* Contenedor principal de la aplicación */
+.app-container {
+  min-height: 100vh;
+}
+
+/* Contenedor de propiedades */
+.properties-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Estilos para páginas de login */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  padding: 2rem;
+}
+
+/* Estilos base para páginas principales */
+.arrendador-page {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,89 @@
+/* =========================================================
+ * SECCIÓN DE CARACTERÍSTICAS
+ * ========================================================= */
+
+/* Contenedor principal de la sección */
+.features-section {
+  width: 100%;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg); /* Fondo blanco para esta sección */
+  color: var(--color-text-main); /* Color de texto para el fondo blanco */
+}
+
+/* Título principal de la sección */
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 3rem;
+  color: var(--color-text-main); /* Asegura que el título sea visible sobre el fondo blanco */
+  font-family: var(--font-family-title);
+}
+
+/* Contenedor de las tarjetas */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Estilo para cada tarjeta */
+.feature-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Círculo que rodea al ícono */
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 2px solid;
+}
+
+/* Tamaño del ícono dentro del círculo */
+.feature-icon i {
+  font-size: 1.5rem;
+}
+
+/* Título de cada tarjeta */
+.feature-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-main);
+  font-family: var(--font-family-title);
+}
+
+/* Descripción de cada tarjeta */
+.feature-description {
+  font-size: 0.9rem;
+  color: var(--color-text-main);
+  line-height: 1.5;
+}
+
+/* Colores específicos para cada ícono */
+.feature-card:nth-child(1) .feature-icon {
+  border-color: var(--color-old-gold);
+  color: var(--color-old-gold);
+}
+
+.feature-card:nth-child(2) .feature-icon {
+  border-color: var(--color-emerald-green);
+  color: var(--color-emerald-green);
+}
+
+.feature-card:nth-child(3) .feature-icon {
+  border-color: var(--color-deep-blue);
+  color: var(--color-deep-blue);
+}

@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { getPaquetesTuristicos } from '../../api/paqueteTusitico';
 import { useAuth } from '../../context/AuthContext';
 import { addFavorito, removeFavorito, checkFavorito } from '../../api/favorito';
+import PaquetesCarousel from './../comunes/PaquetesCarousel';
+import CategoriasCarousel from './CategoriasCarousel';
+import { Features } from './Features'; // Importa el componente Features
+import HeroSection from './HeroSection';
+import { LuHeadset, LuGift, LuMessagesSquare, LuCalendarCheck } from 'react-icons/lu'; // Importa los iconos específicos de Lucide
 
 const ListadoPaquetes: React.FC = () => {
-  // Maneja el click en la estrella de favoritos
-  const handleStarClick = async (e: React.MouseEvent, paqueteId: number) => {
-    e.stopPropagation();
-    await handleFavorito(paqueteId);
-  };
   const [paquetes, setPaquetes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -44,58 +44,60 @@ const ListadoPaquetes: React.FC = () => {
     fetchPaquetes();
   }, [user]);
 
-  const handleFavorito = async (paqueteId: number) => {
-    if (!user?.token) return;
-    if (favoritos[paqueteId]) {
-      await removeFavorito(paqueteId, user.token);
-      setFavoritos({ ...favoritos, [paqueteId]: false });
-    } else {
-      await addFavorito(paqueteId, user.token);
-      setFavoritos({ ...favoritos, [paqueteId]: true });
-    }
+  // Datos para las features que coinciden con la imagen
+  const featuresData = {
+    mainTitle: "",
+    items: [
+      {
+        title: "Atención al cliente",
+        subtitle: "Ininterrumpida",
+        description: "Sin importar la zona horaria, estamos aquí para ayudarte.",
+        icon: LuHeadset // Icono de Lucide React
+      },
+      {
+        title: "Gana recompensas",
+        subtitle: "",
+        description: "Explora, gana, canjea y repite con nuestro programa de fidelidad.",
+        icon: LuGift // Icono de Lucide React
+      },
+      {
+        title: "Millones de opiniones",
+        subtitle: "",
+        description: "Planifica y reserva con confianza gracias a las opiniones de otros viajeros.",
+        icon: LuMessagesSquare // Icono de Lucide React
+      },
+      {
+        title: "Planifica a tu manera",
+        subtitle: "",
+        description: "Mantén la flexibilidad con la cancelación gratuita y la opción de reservar ahora y pagar después sin coste adicional.",
+        icon: LuCalendarCheck // Icono de Lucide React
+      }
+    ]
   };
 
   return (
-    <div className="container py-4">
-      <h1>Paquetes turísticos disponibles</h1>
-      {loading && <div>Cargando...</div>}
-      {error && <div className="text-danger">{error}</div>}
-      <div className="row g-4">
-        {paquetes.map((p) => (
-          <div key={p.id} className="col-md-4">
-            <div className="card position-relative h-100 shadow-sm">
-              {user && (
-                <button
-                  onClick={(e) => handleStarClick(e, p.id)}
-                  className="btn p-0 position-absolute"
-                  style={{
-                    top: 12,
-                    right: 12,
-                    fontSize: 28,
-                    color: favoritos[p.id] ? '#ffd600' : '#bbb',
-                    zIndex: 2,
-                  }}
-                  title={favoritos[p.id] ? 'Quitar de favoritos' : 'Añadir a favoritos'}
-                  aria-label={favoritos[p.id] ? 'Quitar de favoritos' : 'Añadir a favoritos'}
-                >
-                  ★
-                </button>
-              )}
-              {p.imagenes && p.imagenes.length > 0 && (
-                <img src={p.imagenes[0]} alt={p.titulo} className="card-img-top" style={{ height: 140, objectFit: 'cover', borderRadius: '6px 6px 0 0' }} />
-              )}
-              <div className="card-body d-flex flex-column">
-                <h3 className="card-title" style={{ margin: '1rem 0 0.5rem 0' }}>{p.titulo}</h3>
-                <button className="btn btn-primary mb-2" onClick={() => navigate(`/paquete/${p.id}`)}>
-                  Ver detalles
-                </button>
-                <button className="btn btn-success" onClick={() => navigate(`/reservar-paquete/${p.id}`)}>
-                  Reservar
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
+    <div className="homepage-container">
+      {/* El HeroSection se renderiza en la parte superior del flujo de la página */}
+      <HeroSection
+        images={[
+          "https://live.staticflickr.com/8266/8746178810_7cf99099c1_h.jpg",
+          "https://live.staticflickr.com/3751/8973127846_c09e43054b_k.jpg",
+          "https://live.staticflickr.com/5489/9387084053_983025f3d6_h.jpg"
+        ]}
+      />
+      <Features {...featuresData} /> {/* Agrega el componente Features aquí */}
+      <div className="main-content-wrapper">
+        <div className="container py-4">
+          <CategoriasCarousel />
+          <h1 className="mt-5">Paquetes turísticos disponibles</h1>
+          {loading && <div>Cargando...</div>}
+          {error && <div className="text-danger">{error}</div>}
+          {!loading && !error && paquetes.length > 0 ? (
+            <PaquetesCarousel paquetes={paquetes} favoritos={favoritos} setFavoritos={setFavoritos} />
+          ) : (
+            !loading && <div>No hay paquetes disponibles.</div>
+          )}
+        </div>
       </div>
     </div>
   );
