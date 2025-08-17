@@ -1,0 +1,15 @@
+.homepage-container {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.main-content-wrapper {
+  width: 100%;
+  padding: 0; /* Elimina el padding por defecto si lo hay */
+}
+
+.main-content-wrapper .container.py-4 {
+  max-width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+  padding-left: 0;
+  padding-right: 0;
+}

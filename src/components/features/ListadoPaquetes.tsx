@@ -1,36 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, Link, useParams } from 'react-router-dom';
-import { getPaquetesTuristicos, searchPaquetesTuristicos } from '../../api/paqueteTusitico';
-import PaquetesFiltro from '../comunes/PaquetesFiltro';
+import { useNavigate, Link } from 'react-router-dom';
+import { getPaquetesTuristicos } from '../../api/paqueteTusitico';
 import { useAuth } from '../../context/AuthContext';
-import PaquetesCarousel from './../comunes/PaquetesCarousel';
+import { addFavorito, removeFavorito, checkFavorito } from '../../api/favorito';
 import CategoriasCarousel from './CategoriasCarousel';
-import { Features } from './Features'; // Importa el componente Features
 import HeroSection from './HeroSection';
+import { Features } from './Features';
 import './PaquetesCard.css';
-import { FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa'; // Importa los íconos necesarios
-import { LuHeadset, LuGift, LuMessagesSquare, LuCalendarCheck } from 'react-icons/lu'; // Importa los iconos específicos de Lucide
+import './ListadoPaquetes.css'; // Importa el nuevo archivo CSS
+import { FaHeart, FaRegHeart, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
+import { LuHeadset, LuGift, LuMessagesSquare, LuCalendarCheck } from 'react-icons/lu';
+import { IconType } from 'react-icons';
 
 const ListadoPaquetes: React.FC = () => {
   const [paquetes, setPaquetes] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { categoria: categoriaParam } = useParams();
-  const [categoria, setCategoria] = useState<string>(categoriaParam || '');
+  const [favoritos, setFavoritos] = useState<{[key: number]: boolean}>({});
   const navigate = useNavigate();
   const { user } = useAuth();
 
   useEffect(() => {
     async function fetchPaquetes() {
-      setLoading(true);
       try {
-        let data;
-        if (categoria) {
-          data = await searchPaquetesTuristicos({ tipo_paquete: categoria }, user?.token);
-        } else {
-          data = await getPaquetesTuristicos(user?.token);
-        }
+        const data = await getPaquetesTuristicos();
         setPaquetes(data);
+            if (typeof user?.token === 'string' && user.token) {
+              const favs: {[key: number]: boolean} = {};
+              await Promise.all(data.map(async (p: any) => {
+                try {
+                  const res = await checkFavorito(p.id, user.token as string);
+                  favs[p.id] = res && typeof res.is_favorite === 'boolean' ? res.is_favorite : false;
+                } catch (e) {
+                  console.error('Error al consultar favorito:', e);
+                  favs[p.id] = false;
+                }
+              }));
+              setFavoritos(favs);
+        }
       } catch (err: any) {
         setError(err?.message || 'Error al cargar paquetes');
       } finally {
@@ -38,19 +45,28 @@ const ListadoPaquetes: React.FC = () => {
       }
     }
     fetchPaquetes();
-  }, [user, categoria]);
+  }, [user]);
 
-  // Sincroniza el filtro con el parámetro de la URL si cambia
-  useEffect(() => {
-    if (categoriaParam && categoriaParam !== categoria) {
-      setCategoria(categoriaParam);
+  const handleFavorito = async (paqueteId: number) => {
+    if (!user?.token) return;
+    try {
+      if (favoritos[paqueteId]) {
+        await removeFavorito(paqueteId, user.token);
+        setFavoritos({ ...favoritos, [paqueteId]: false });
+      } else {
+        await addFavorito(paqueteId, user.token);
+        setFavoritos({ ...favoritos, [paqueteId]: true });
+      }
+    } catch (err) {
+      console.error('Error al actualizar favoritos:', err);
     }
-    if (!categoriaParam && categoria !== '') {
-      setCategoria('');
-    }
-  }, [categoriaParam]);
+  };
+  
+  const handleStarClick = (e: React.MouseEvent, paqueteId: number) => {
+    e.stopPropagation();
+    handleFavorito(paqueteId);
+  };
 
-  // Datos para las features que coinciden con la imagen
   const featuresData = {
     mainTitle: "",
     items: [
@@ -58,33 +74,31 @@ const ListadoPaquetes: React.FC = () => {
         title: "Atención al cliente",
         subtitle: "Ininterrumpida",
         description: "Sin importar la zona horaria, estamos aquí para ayudarte.",
-        icon: LuHeadset // Icono de Lucide React
+        icon: LuHeadset
       },
       {
         title: "Gana recompensas",
         subtitle: "",
         description: "Explora, gana, canjea y repite con nuestro programa de fidelidad.",
-        icon: LuGift // Icono de Lucide React
+        icon: LuGift
       },
       {
         title: "Millones de opiniones",
         subtitle: "",
         description: "Planifica y reserva con confianza gracias a las opiniones de otros viajeros.",
-        icon: LuMessagesSquare // Icono de Lucide React
+        icon: LuMessagesSquare
       },
       {
         title: "Planifica a tu manera",
         subtitle: "",
         description: "Mantén la flexibilidad con la cancelación gratuita y la opción de reservar ahora y pagar después sin coste adicional.",
-        icon: LuCalendarCheck // Icono de Lucide React
+        icon: LuCalendarCheck
       }
     ]
   };
-
   
   return (
     <div className="homepage-container">
-      {/* El HeroSection se renderiza en la parte superior del flujo de la */}
       <HeroSection
         images={[
           "https://live.staticflickr.com/8266/8746178810_7cf99099c1_h.jpg",
@@ -92,12 +106,13 @@ const ListadoPaquetes: React.FC = () => {
           "https://live.staticflickr.com/5489/9387084053_983025f3d6_h.jpg"
         ]}
       />
-      <Features {...featuresData} /> {/* Agrega el componente Features aquí */}
+      
       <div className="main-content-wrapper">
         <div className="container py-4">
-          {/* Filtro de categoría modularizado */}
-          <PaquetesFiltro categoria={categoria} onCategoriaChange={setCategoria} />
           <CategoriasCarousel />
+          
+          <Features mainTitle={featuresData.mainTitle} items={featuresData.items} />
+
           <h1 className="mt-5">Paquetes turísticos disponibles</h1>
           {loading && <div>Cargando...</div>}
           {error && <div className="text-danger">{error}</div>}
