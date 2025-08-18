@@ -33,11 +33,14 @@ const CrearReviewPopup: React.FC<CrearReviewPopupProps> = ({ paqueteId, reservaI
     setError(null);
     try {
       const reviewPayload: any = {
-        comentario,
-        calificacion,
         paquete_id: paqueteId,
+        calificacion,
+        comentario,
       };
-      if (typeof reservaId === 'number') reviewPayload.reserva_id = reservaId;
+      // Solo enviar reserva_id si existe y es un número válido
+      if (typeof reservaId === 'number' && !isNaN(reservaId)) {
+        reviewPayload.reserva_id = reservaId;
+      }
       await createReview(reviewPayload, user?.token);
       setSuccess(true);
       if (onReviewCreated) onReviewCreated();

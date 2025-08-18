@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import RegisterPage from '../pages/auth/RegisterPage';
 import LoginPage from '../pages/auth/LoginPage';
 import DashboardEmpresaPage from '../pages/pages_empresas/DashboardEmpresaPage';
+import ReviewsPaquetesPage from '../pages/pages_empresas/ReviewsPaquetesPage';
 import CrearPaquetePage from '../pages/pages_empresas/CrearPaquetePage';
 import MisPaquetesPage from '../pages/pages_empresas/MisPaquetesPage';
 import EditarPaquetePage from '../pages/pages_empresas/EditarPaquetePage';
@@ -20,6 +21,7 @@ const AppRoutes: React.FC = () => (
     <Route path="/register" element={<RegisterPage />} />
     <Route path="/login" element={<LoginPage />} />
   <Route path="/dashboard" element={<DashboardEmpresaPage />} />
+  <Route path="/reviews-paquetes" element={<ReviewsPaquetesPage />} />
   <Route path="/empresa/crear-paquete" element={<CrearPaquetePage />} />
   <Route path="/mis-paquetes" element={<MisPaquetesPage />} />
   <Route path="/empresa/editar-paquete/:id" element={<EditarPaquetePage />} />
