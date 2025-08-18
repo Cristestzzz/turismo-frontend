@@ -35,27 +35,21 @@ const ReservasRecibidasPage: React.FC = () => {
             <tr>
               <th>ID</th>
               <th>Paquete</th>
-              <th>Nombre</th>
-              <th>Email</th>
+              <th>Turista</th>
               <th>Cantidad</th>
               <th>Fecha inicio</th>
               <th>Fecha fin</th>
-              <th>Días estancia</th>
-              <th>Fecha creación</th>
             </tr>
           </thead>
           <tbody>
             {reservas.map(r => (
               <tr key={r.id}>
                 <td>{r.id}</td>
-                <td>{r.propiedad_titulo || r.paquete_id}</td>
-                <td>{r.nombre}</td>
-                <td>{r.email}</td>
-                <td>{r.cantidad}</td>
+                <td>{r.paquete_titulo || r.paquete_id}</td>
+                <td>{r.turista_nombre} {r.turista_apellido}</td>
+                <td>{r.numero_personas}</td>
                 <td>{r.fecha_inicio}</td>
                 <td>{r.fecha_fin}</td>
-                <td>{r.dias_estancia ?? '-'}</td>
-                <td>{r.fecha_creacion}</td>
               </tr>
             ))}
           </tbody>

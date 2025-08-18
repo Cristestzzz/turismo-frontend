@@ -22,13 +22,11 @@ const MisReservasPage: React.FC = () => {
 		}, []);
 
 		const columns: DataTablasColumn[] = [
-			{ key: 'propiedad_titulo', label: 'Paquete' },
 			{ key: 'fecha_inicio', label: 'Fecha inicio', render: (v) => v?.slice(0,10) },
 			{ key: 'fecha_fin', label: 'Fecha fin', render: (v) => v?.slice(0,10) },
 			{ key: 'numero_personas', label: 'Personas' },
 			{ key: 'estado', label: 'Estado' },
-			{ key: 'metodo_pago', label: 'Método de pago' },
-			{ key: 'precio_total', label: 'Total', render: (v) => `$${v}` },
+			{ key: 'precio_total', label: 'Total', render: (v) => v ? `$${Number(v).toLocaleString('es-PE', { minimumFractionDigits: 2 })}` : '' },
 		];
 
 		return (
