@@ -1,3 +1,17 @@
+export async function getMisReviews(token?: string) {
+  try {
+    const authToken = token || localStorage.getItem('token');
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/reviews/mias`, {
+      headers: {
+        Authorization: authToken ? `Bearer ${authToken}` : '',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.detail || 'Error al obtener mis reviews');
+  }
+}
 import axios from 'axios';
 
 export interface Review {
