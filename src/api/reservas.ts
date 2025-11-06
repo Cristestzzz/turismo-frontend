@@ -11,7 +11,6 @@ export interface ReservaEmpresa {
   operador_nombre?: string;
   operador_apellido?: string;
   dias_estancia?: number;
-  aa
 }
 
 export async function getReservasByOperador(token?: string) {

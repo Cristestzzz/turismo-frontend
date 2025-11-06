@@ -12,7 +12,7 @@ export interface UpdateUserProfileData {
 export async function updateUserProfile(data: UpdateUserProfileData) {
   try {
     const token = localStorage.getItem('token');
-  const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/usuarios/me`, data, {
+    const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/usuarios/me`, data, {
       headers: {
         Authorization: token ? `Bearer ${token}` : '',
       },

@@ -3,7 +3,7 @@ declare global {
   interface ImportMeta {
     env: {
       VITE_BACKEND_URL: string;
-      // Agrega aquí otras variables si las usas
+      // Agrega aquí otras variables si las usasa
     };
   }
 }
